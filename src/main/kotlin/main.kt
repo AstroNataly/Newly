@@ -1,10 +1,10 @@
 fun agoToText(secondsCount: Int): String {
-    return when {
-        (0 <= secondsCount && secondsCount <= 60) -> "только что"
-        (60 <= secondsCount && secondsCount <= 60*60) -> "${secondToMinutesToText(secondsCount)} назад" //вместо х вызов дополнительной функции minute
-        (60 * 60 + 1 <= secondsCount && secondsCount <= 24 * 60 * 60) -> "${secondToHoursToText(secondsCount)} назад" //вместо х вызов дополнительной функции
-        (24 * 60 * 60 + 1 <= secondsCount && secondsCount <= 24 * 60 * 60 * 2) -> "сегодня"
-        (24 * 60 * 60 * 2 + 1 <= secondsCount && secondsCount <= 24 * 60 * 60 * 3) -> "вчера"
+    return when (secondsCount) {
+        in 0 .. 60 -> "только что"
+        in 60 .. 60*60 -> "${secondToMinutesToText(secondsCount)} назад"
+        in 60 * 60 + 1 .. 24 * 60 * 60 -> "${secondToHoursToText(secondsCount)} назад"
+        in 24 * 60 * 60 + 1 .. 24 * 60 * 60 * 2 -> "сегодня"
+        in 24 * 60 * 60 * 2 + 1 .. 24 * 60 * 60 * 3 -> "вчера"
         else ->  {
             "давно"
         }
@@ -34,7 +34,7 @@ fun secondToHoursToText(secondsCount: Int): String {
 }
 
 fun main() {
-    val secondsCount: Int = 39_600
+    val secondsCount = 39_600
     val result = agoToText(secondsCount)
     println("Был(а) в сети $result")
 }
